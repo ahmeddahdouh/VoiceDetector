@@ -1,0 +1,12 @@
+# Ignorer l'environnement virtuel local
+.venv/
+# Fichiers générés par Poetry
+poetry.lock
+
+# Ignorer les fichiers compilés Python
+__pycache__/
+*.py[cod]
+
+# Ignorer les logs et fichiers temporaires
+*.log
+*.tmp
