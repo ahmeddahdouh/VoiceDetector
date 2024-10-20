@@ -1,7 +1,6 @@
 # app/user_service.py
 from datetime import timedelta
-from http.client import HTTPException
-
+from fastapi import FastAPI, HTTPException
 from sqlmodel import Session
 
 import app
@@ -12,8 +11,18 @@ from app.schema.shema import UserCreate
 
 
 def register_user(db: Session, user: UserCreate):
-    if get_user_by_email(db, user.email) or get_user_by_username(db, user.username):
-        raise HTTPException(status_code=400, detail="User already registered")
+    # Vérification de l'existence de l'utilisateur par email
+    print(user)
+    existing_user_email = get_user_by_email(db, user.email)
+    if existing_user_email:
+        raise HTTPException(status_code=400, detail="Email already registered")
+
+    # Vérification de l'existence de l'utilisateur par nom d'utilisateur
+    existing_user_username = get_user_by_username(db, user.username)
+    if existing_user_username:
+        raise HTTPException(status_code=400, detail="Username already taken")
+
+    # Création de l'utilisateur
     return create_user(db, user)
 
 def get_users(db: Session):
@@ -30,5 +39,5 @@ def authenticate_user(db: Session, username: str, password: str):
     access_token = create_access_token(
         data={"sub": user.username}, expires_delta=access_token_expires
     )
-    return {"access_token": access_token, "token_type": "bearer"}
+    return {"user_name":user.username,"access_token": access_token, "token_type": "bearer"}
 
