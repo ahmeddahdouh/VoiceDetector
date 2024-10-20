@@ -9,10 +9,6 @@ from app.services.user_service import register_user, authenticate_user
 router = APIRouter()
 
 
-@router.post("/users/")
-async def create_user(user: UserBase, db: db_dependency):
-    return user_service.create_user(db, user)
-
 @router.get("/allusers/")
 async def get_users(db: db_dependency):
     return user_service.get_users(db)
