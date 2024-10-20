@@ -2,6 +2,7 @@ from fastapi import APIRouter, Depends ,HTTPException
 from sqlalchemy.orm import Session
 
 from app.core.config import db_dependency, get_db
+from app.core.security import verify_jwt
 from app.schema.shema import UserBase, UserCreate, UserResponse
 from app.services import user_service
 from app.services.user_service import register_user, authenticate_user
@@ -10,7 +11,7 @@ router = APIRouter()
 
 
 @router.get("/allusers/")
-async def get_users(db: db_dependency):
+async def get_users(db: db_dependency, token: str = Depends(verify_jwt)):
     return user_service.get_users(db)
 
 
