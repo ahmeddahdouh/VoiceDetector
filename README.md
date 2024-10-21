@@ -1,60 +1,50 @@
-[tool.poetry]
-name = "voicedetector"
-version = "0.1.0"
-description = ""
-authors = ["ahmed <ahmed.dahdouh98@gmail.com>"]
-readme = "README.md"
+# VoiceDetector
 
-[tool.poetry.dependencies]
-python = "^3.9"
-fastapi = {extras = ["standard"], version = "^0.115.2"}
-uvicorn = "^0.32.0"
-sqlalchemy = "^2.0.36"
-databases = "^0.9.0"
-asyncpg = "^0.29.0"
-passlib = {extras = ["bcrypt"], version = "^1.7.4"}
-python-jose = "^3.3.0"
-psycopg2 = "^2.9.10"
-psycopg2-binary = "^2.9.10"
-python-multipart = "^0.0.12"
-pyjwt = "^2.9.0"
-alembic = "^1.13.3"
-annotated-types = "^0.7.0"
-anyio = "^4.6.2.post1"
-bcrypt = "^4.2.0"
-certifi = "^2024.8.30"
-click = "^8.1.7"
-colorama = "^0.4.6"
-dnspython = "^2.7.0"
-ecdsa = "^0.19.0"
-email-validator = "^2.2.0"
-fastapi-cli = "^0.0.5"
-functions = "^0.7.0"
-greenlet = "^3.1.1"
-h11 = "^0.14.0"
-httpcore = "^1.0.6"
-httptools = "^0.6.4"
-httpx = "^0.27.2"
-idna = "^3.10"
-iniconfig = "^2.0.0"
-Jinja2 = "^3.1.4"
-Mako = "^1.3.5"
-markdown-it-py = "^3.0.0"
-MarkupSafe = "^3.0.1"
-mdurl = "^0.1.2"
-packaging = "^24.1"
-rich = "^13.9.2"
-rsa = "^4.9"
-schemas = "^0.7.1"
-shellingham = "^1.5.4"
-six = "^1.16.0"
-sniffio = "^1.3.1"
-sqlmodel = "^0.0.22"
-starlette = "^0.40.0"
-typer = "^0.12.5"
-typing_extensions = "^4.12.2"
-watchfiles = "^0.24.0"
-websockets = "^13.1"
+## Description
+L'objectif de ce projet est de développer une intelligence artificielle (IA) capable d'identifier une voix et de l'associer à un utilisateur précis. Ce système pourrait être utilisé dans divers cas d'utilisation tels que l'authentification sécurisée, la reconnaissance d'utilisateurs dans des applications vocales ou encore la personnalisation d'interactions en fonction des utilisateurs.
+
+## Prérequis
+Avant de commencer, assurez-vous d'avoir installé les éléments suivants :
+
+- [Python](https://www.python.org/downloads/) (version 3.9 ou supérieure)
+- [Poetry](https://python-poetry.org/docs/#installation) pour la gestion des dépendances
+
+## Installation
+
+1. Clonez le dépôt :
+
+   ```bash
+   git clone <URL_DU_DEPOT>
+   cd voicedetector
+   ```
+
+2. Installez les dépendances avec Poetry :
+
+   ```bash
+   poetry install
+   ```
+
+## Configuration
+
+1. **Base de données :**
+   Configurez votre base de données dans le fichier de configuration approprié (par exemple, `config.py` ou `settings.py`). Assurez-vous d'installer les pilotes nécessaires, comme `psycopg2` pour PostgreSQL.
+
+2. **Variables d'environnement :**
+   Créez un fichier `.env` pour définir vos variables d'environnement, comme les informations d'authentification pour la base de données.
+
+## Utilisation
+
+1. **Démarrer le serveur :**
+
+   Utilisez la commande suivante pour démarrer le serveur :
+
+   ```bash
+   poetry run uvicorn main:app --reload
+   ```
+
+   Remplacez `main:app` par le nom de votre fichier principal si nécessaire.
+
+2. **Accéder à l'API :**
 
 [build-system]
 requires = ["poetry-core"]
