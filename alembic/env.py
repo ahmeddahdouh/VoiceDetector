@@ -9,12 +9,6 @@ from alembic import context
 
 from app.models.models import Base
 
-section = config.config_ini_section
-config.set_section_option(section, "DB_USER", os.environ[DB_USER])
-config.set_section_option(section, "DB_PASSWORD", os.environ[DB_PASSWORD])
-config.set_section_option(section, "DB_HOST", os.environ[DB_HOST])
-config.set_section_option(section, "DB_NAME", os.environ[DB_NAME])
-
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
 config = context.config
