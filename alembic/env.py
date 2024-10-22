@@ -2,6 +2,7 @@ import os
 from logging.config import fileConfig
 
 import config
+from dotenv import load_dotenv
 from sqlalchemy import engine_from_config
 from sqlalchemy import pool
 
@@ -12,6 +13,29 @@ from app.models.models import Base
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
 config = context.config
+load_dotenv()
+# Récupérer la section principale
+section = config.config_ini_section
+# Définir les options de la section avec les variables d'environnement
+config.set_section_option(section, "DB_USER", os.getenv("DB_USER"))
+config.set_section_option(section, "DB_PASSWORD", os.getenv("DB_PASSWORD"))
+config.set_section_option(section, "DB_HOST", os.getenv("DB_HOST"))
+config.set_section_option(section, "DB_PORT", os.getenv("DB_PORT"))
+config.set_section_option(section, "DB_NAME", os.getenv("DB_NAME"))
+
+
+# Vérifiez que les valeurs sont bien récupérées
+db_user = os.getenv("DB_USER")
+db_password = os.getenv("DB_PASSWORD")
+db_host = os.getenv("DB_HOST")
+db_port = os.getenv("DB_PORT")
+db_name = os.getenv("DB_NAME")
+
+# Construire l'URL de connexion
+sqlalchemy_url = f"postgresql://{db_user}:{db_password}@{db_host}:{db_port}/{db_name}"
+
+# Définir l'URL de la base de données pour Alembic
+config.set_main_option('sqlalchemy.url', sqlalchemy_url)
 
 # Interpret the config file for Python logging.
 # This line sets up loggers basically.
@@ -68,9 +92,7 @@ def run_migrations_online() -> None:
     )
 
     with connectable.connect() as connection:
-        context.configure(
-            connection=connection, target_metadata=target_metadata
-        )
+        context.configure(connection=connection, target_metadata=target_metadata)
 
         with context.begin_transaction():
             context.run_migrations()
