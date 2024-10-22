@@ -10,3 +10,4 @@ __pycache__/
 # Ignorer les logs et fichiers temporaires
 *.log
 *.tmp
+*.env
