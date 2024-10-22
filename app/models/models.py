@@ -10,6 +10,6 @@ class User(Base):
     id = Column(Integer, primary_key=True,index=True)
     username = Column(String(50), unique=True, nullable=False)
     email = Column(String(50), unique=True, nullable=False)
-    password = Column(nullable=False)
+    password = Column(String,nullable=False)
     vocal_data = Column(ARRAY(Float), nullable=True)
 
