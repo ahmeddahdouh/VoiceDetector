@@ -36,13 +36,13 @@ jobs:
 
     - name: Run tests
       run: |
-        # Exécute des tests si disponibles
+        # Exécuter des tests si disponibles
         docker-compose exec web pytest
 
     - name: Push Docker image to Docker Hub
       run: |
-        docker tag voicedetector_web:latest your_dockerhub_username/voicedetector:latest
-        docker push your_dockerhub_username/voicedetector:latest
+        docker tag voicedetector_web:latest ahmeddocker98/voicedetector:latest
+        docker push ahmeddocker98/voicedetector:latest
 
     - name: Shut down services
       run: |
