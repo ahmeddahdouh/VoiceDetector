@@ -1,0 +1,49 @@
+name: Build and Deploy Docker Image with Compose
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+
+    - name: Install Docker and Docker Compose
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y docker.io docker-compose
+
+    - name: Log in to Docker Hub
+      env:
+        DOCKER_USER: ${{ secrets.DOCKER_USER }}
+        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+      run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USER }}" --password-stdin
+
+    - name: Build and start services with Docker Compose
+      run: |
+        docker-compose -f docker-compose.yml up --build -d
+
+    - name: Run tests
+      run: |
+        # Exécuter des tests si disponibles
+        docker-compose exec web pytest
+
+    - name: Push Docker image to Docker Hub
+      run: |
+        docker tag voicedetector_web:latest ahmeddocker98/voicedetector:latest
+        docker push ahmeddocker98/voicedetector:latest
+
+    - name: Shut down services
+      run: |
+        docker-compose down
