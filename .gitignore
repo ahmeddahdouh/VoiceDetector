@@ -1,5 +1,6 @@
 # Ignorer l'environnement virtuel local
 .venv/
+voice_samples/
 # Fichiers générés par Poetry
 poetry.lock
 
